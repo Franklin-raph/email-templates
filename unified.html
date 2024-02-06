@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Pay</button>
+
+    <!-- const url = https://test.payarena.com/Aggregator; // Replace with your actual API endpoint -->
+    
+    <script>
+        const data = {
+            id: "PAYARENA",
+            description: "TEST",
+            amount: 1000,
+            fee: 0,
+            currency: "566",
+            returnUrl: "http://localhost:5500/success.html",
+            secretKey: "CA24AC34952FB7BFC293F6451A5AAB82737CF9170E49F552",
+            scheme: "",
+            vendorId: "",
+            parameter: "",
+            count: 0,
+            CustomerName: "Frank",
+            Email: "frank@gmail.com"
+        };
+        document.querySelector('button').addEventListener("click", async ()=>{
+            console.log("payment processing");
+            const res = await fetch('https://test.payarena.com:8080/norlics', {
+                method:"POST",
+                headers: {
+                    "Accept":"application/json",
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            const val = await res.json()
+            if(res.ok){
+                window.location.href =  `https://test.payarena.com/${val}`;
+            }
+            console.log(val);
+        })
+
+        async function getTransactionInfo() {
+            // const res = await fetch('https://test.payarena.com /Status/76613')
+        }
+    </script>
+</body>
+</html>
